@@ -16,16 +16,20 @@ pip install MDO
 ## Usage
 
 ```python
-import MDO
+from MDO.main import MDO
+
 params = { 
-    n_components : 10,
-    covariance_type : 'full',
+    "inference_type"='bayesian',
+    "n_components" : 10,
+    "covariance_type" : 'full',
     ...
     } #Parameters for bayesian Gaussian mixture or the usual one 
 
-MDO.fit(X, inference_type='bayesian', **params) # Procede to inference for finding parameters (means and precision matrice)
+outliers_dectetion = MDO()
+outliers_dectetion = outliers_dectetion.fit(X, **params) # Procede to inference for finding parameters (means and precision matrice)
+
+List_scoring_global = MDO.get_scoring() # returns global scoring 
 List_scoring_local = MDO.get_scoring("local") # returns local scoring
-List_scoring_global = MDO.get_scoring("global") # returns global scoring 
 ```
 
 

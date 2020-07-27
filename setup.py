@@ -1,5 +1,8 @@
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 DESCRIPTION = """
             Detection of outlier with mahanalobis distance 
             which have access of the parameters (means and precision matrice) with algo GMM or Bayesian GMM provide by sklearn
@@ -11,6 +14,7 @@ setup(
     author_email="jonathan.ndamba.pro@gmail.com",
     url="https://github.com/JonathanNdambaPro/MDO",
     description=DESCRIPTION,
+    long_description=long_description,
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
