@@ -94,12 +94,12 @@ class MDO: # Mahanalobis dectection outliers
         self.global_mahanalobis(data)
         self.local_mahanalobis(data)
 
-    def get_scoring(self, scoring="local"):
+    def get_scoring(self, scoring="global"):
         """
         Get the scoring define by the mahanalobis distance (local or global)
         :param scoring: define if the methods return local scoring or global
         :return: 
-        """"
+        """
         if scoring == 'local': return self.mahanalobis_local
         elif scoring == 'global': return self.mahanalobis_global
 
