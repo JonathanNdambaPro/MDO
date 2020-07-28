@@ -1,29 +1,29 @@
-# MDO
+# Mahanalobis_Detection_Outliers
 
-MDO (Mahanalobis detection outliers) is a method based on the inference of some parameters (means vertors and precisions matrice) of gaussian mixture with the EM algorithm to define mahanalobis distance 
+Mahanalobis_Detection_Outliers is a method based on the inference of some parameters (means vertors and precisions matrice) of gaussian mixture with the EM algorithm to define mahanalobis distance 
 and a scoring.
 
 
 [For more explanation]()
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install MDO.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Mahanalobis_Detection_Outliers.
 
 ```bash
-pip install MDO
+pip install Mahanalobis_Detection_Outliers
 ```
 
 ## Usage
 
 ```python
-from MDO.main import MDO
+from Mahanalobis_Detection_Outliers.main import MDO
 
 params = { 
     "inference_type"='bayesian',
     "n_components" : 10,
     "covariance_type" : 'full',
     ...
-    } #Parameters for bayesian Gaussian mixture or the usual one 
+    } #Parameters for bayesian Gaussian mixture or the usual one more explanations about parameters on sklearn
 
 outliers_dectetion = MDO()
 outliers_dectetion = outliers_dectetion.fit(X, **params) # Procede to inference for finding parameters (means and precision matrice)

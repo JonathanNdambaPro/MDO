@@ -1,9 +1,0 @@
-README.md
-setup.py
-MDO/__init__.py
-MDO/main.py
-MDO.egg-info/PKG-INFO
-MDO.egg-info/SOURCES.txt
-MDO.egg-info/dependency_links.txt
-MDO.egg-info/requires.txt
-MDO.egg-info/top_level.txt
