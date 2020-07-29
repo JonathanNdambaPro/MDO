@@ -52,4 +52,3 @@ def detect_NaN():
 
 if __name__ == "__main__":
     var = detect_num()
-7921Xb371993!
