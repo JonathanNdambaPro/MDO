@@ -1,6 +1,6 @@
 Metadata-Version: 1.2
-Name: Mahanalobis-Detection-Outlier
-Version: 0.2.0
+Name: outlier-detector
+Version: 0.2.1
 Summary: 
             Detection of outlier with mahanalobis distance 
             which have access of the parameters (means and precision matrice) with algo GMM or Bayesian GMM provide by sklearn

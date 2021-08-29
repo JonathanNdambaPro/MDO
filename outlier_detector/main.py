@@ -14,17 +14,24 @@ class Mdo(BaseEstimator, TransformerMixin):
     plus le score est eleve plus le point est aberrant
     """
 
-    def __init__(self) -> None:
-        return self
+
+    def __init__(self):
+        return None
 
     def Frequentist_gmm_inference(
-        self, data: t.Union[pd.DataFrame, np.ndarray], **params
+        self, data: pd.DataFrame, **params
     ) -> None:
         """
         Frequentist inference of parameters by the EM algorithms,
         accept only DataFrame with numerical data, please do the feature engineering before enter the Dataframe
-        :type data: Pd.DataFrame
-        :return None:
+
+        :parameters:
+        ---------------------------------------------------------------
+        Data: DataFrame
+            Donnees a analyser
+        **params:
+            parametres du modele gaussianmixture
+
         """
         gmm = GaussianMixture(**params)
         gmm.fit(data)
@@ -41,8 +48,14 @@ class Mdo(BaseEstimator, TransformerMixin):
         """
         Bayesian inference of parameters by the EM algorithms of sklearn,
         accept only DataFrame with numerical data, please do the feature engineering before enter the Dataframe
-        :param data: Set of data to do the inference
-        :return: None
+
+        :parameters:
+        ---------------------------------------------------------------
+        Data: DataFrame
+            Donnees a analyser
+        **params:
+            parametres du modele gaussianmixture
+
         """
         Bayesian_gmm = BayesianGaussianMixture(**params)
         Bayesian_gmm.fit(data)
@@ -53,54 +66,90 @@ class Mdo(BaseEstimator, TransformerMixin):
         self.label = Bayesian_gmm.predict(data)
         self.nrb_comp = Bayesian_gmm.n_components
 
-    def global_mahanalobis(self, data: t.Union[pd.DataFrame, np.ndarray]) -> t.List:
+    def global_mahanalobis(self, data: pd.DataFrame) -> t.List:
         """
         evaluate the weighted average distance from clusters
-        :param data: data to check
-        :return: None
+
+        :parameters:
+        ---------------------------------------------------------------
+        Data: DataFrame
+            Donnees a analyser
+
+
+        :return:
+        ---------------------------------------------------------------
+        mahanalobis_global:List
+            Liste des differentes distances
         """
         self.mahanalobis_global = []
+        np_data_point = data.to_numpy()
+
         for i in range(data.shape[0]):
 
             for means, precision, weight in zip(
                 self.means, self.precision, self.weight
             ):
-                dist_point = weight * distance.mahalanobis(means, data[i], precision)
+                dist_point = weight * distance.mahalanobis(means, np_data_point[i], precision)
             self.mahanalobis_global.append(dist_point)
+
+        self.scoring_global = True
 
         return self.mahanalobis_global
 
-    def local_mahanalobis(self, data: t.Union[pd.DataFrame, np.ndarray]) -> t.List:
+    def local_mahanalobis(self, data: pd.DataFrame) -> t.List:
         """
         evaluate the distance of the nearest cluster (i.e  the cluster which the point belongs)
-        :param data: data to check
-        :return: None
+
+        :parameters:
+        ---------------------------------------------------------------
+        Data: DataFrame
+            Donnees a analyser
+
+
+        :return:
+        ---------------------------------------------------------------
+        mahanalobis_local:List
+            Liste des differentes distances
         """
         self.mahanalobis_local = []
+        np_data_point = data.to_numpy()
 
         for i in range(data.shape[0]):
             means = self.means[self.label[i]]
             precision = self.precision[self.label[i]]
-            dist_point = distance.mahalanobis(means, data[i], precision)
+            dist_point = distance.mahalanobis(means, np_data_point[i], precision)
             self.mahanalobis_local.append(dist_point)
+
+        self.scoring_local = True
 
         return self.mahanalobis_local
 
-    def fit(self, data: t.Union[pd.DataFrame, np.ndarray], y=None):
+    def fit(self, data: pd.DataFrame, y=None):
         return self
 
     def transform(
         self,
-        data: t.Union[pd.DataFrame, np.ndarray],
+        data: pd.DataFrame,
         inference_type: str = "bayesian",
         **params
     ) -> t.Union[None, pd.DataFrame]:
         """
         fitting of the distance
-        :param data: data to check
-        :param inference_type: types of inference (bayesian or frequentist)
-        :param params: parameters for the inference
-        :return: None
+
+        :parameters:
+        ---------------------------------------------------------------
+        Data: DataFrame
+            Donnees a analyser
+        inference_type:Str
+            Type d'inference
+                bayesian : scoring issue du bayesian EM
+                frequentist : scoring issue du EM basique
+
+
+        :return:
+        ---------------------------------------------------------------
+        data_with_distance: None|Dataframe
+            Renvoie un le dataframe de base avec les metriques s'il un dataframe en entree sinon None
         """
         if inference_type == "bayesian":
             self.Bayesian_gmm_inference(data, **params)
@@ -120,13 +169,25 @@ class Mdo(BaseEstimator, TransformerMixin):
         else:
             return None
 
-    def get_scoring(self, scoring="global"):
+    def get_scoring(self, scoring: str = "global")-> t.List:
         """
         Get the scoring define by the mahanalobis distance (local or global)
-        :param scoring: define if the methods return local scoring or global
+
+        :parameters:
+        ---------------------------------------------------------------
+        scoring:Str
+            definie le type de scoring qu'on veut en sortie
+                global: scoring global
+                local: scoring local
+        
         :return:
+        ---------------------------------------------------------------
+            retourne le score souhaite sous forme de liste
         """
-        if scoring == "local":
+        if scoring == "local" and self.scoring_local:
             return self.mahanalobis_local
-        elif scoring == "global":
+        elif scoring == "global" and self.scoring_global:
             return self.mahanalobis_global
+
+        else:
+            raise Exception("neither local and global i've been permformed")
