@@ -1,13 +1,6 @@
-import module
+import pandas as pd
 
-
-class Test_Data:
-
-    def test_num(self):
-        assert module.detect_num()
-
-    def test_NaN(self):
-        assert module.detect_NaN()
-
+def test_values_score(data):
+    pass
 
 
