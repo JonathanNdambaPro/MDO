@@ -4,7 +4,6 @@ Mahanalobis_Detection_Outliers is a method based on the inference of some parame
 and a scoring.
 
 
-[For more explanation]()
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Mahanalobis_Detection_Outliers.
@@ -16,7 +15,7 @@ pip install Mahanalobis_Detection_Outliers
 ## Usage
 
 ```python
-from Mahanalobis_Detection_Outliers.main import MDO
+from outlier_detector.main import Mdo
 
 params = { 
     "inference_type"='bayesian',
@@ -25,11 +24,12 @@ params = {
     ...
     } #Parameters for bayesian Gaussian mixture or the usual one more explanations about parameters on sklearn
 
-outliers_dectetion = MDO()
-outliers_dectetion = outliers_dectetion.fit(X, **params) # Procede to inference for finding parameters (means and precision matrice)
+outliers_dectetion = Mdo()
+X_scoring = outlier_detection.transform(X, **params)
+ # Procede to inference for finding parameters (means and precision matrice)
 
-List_scoring_global = MDO.get_scoring() # returns global scoring 
-List_scoring_local = MDO.get_scoring("local") # returns local scoring
+List_scoring_global = outlier_detection.get_scoring() # returns global scoring 
+List_scoring_local = outlier_detection.get_scoring("local") # returns local scoring
 ```
 
 

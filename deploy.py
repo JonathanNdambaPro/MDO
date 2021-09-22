@@ -77,6 +77,7 @@ def global_CI(global_: bool):
         command_3 = "git add ."
         command_4 = f'git commit -m "{message_commit}"'
         command_5 = "git push"
+        
 
         global_commande.extend([command_1, command_2, command_3, command_4, command_5])
 

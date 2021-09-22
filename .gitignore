@@ -3,3 +3,5 @@ test.py
 TestData.csv
 .ipynb_checkpoints
 __pycache__
+.pytest_cache
+.idea
