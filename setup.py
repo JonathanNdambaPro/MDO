@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-NAME = 'MDO_outlier_detector'
+NAME = 'mdo_outlier_detector'
 DESCRIPTION = """
             Detection of outlier with mahanalobis distance 
             which have access of the parameters (means and precision matrice) with algo GMM or Bayesian GMM provide by sklearn
