@@ -9,13 +9,13 @@ and a scoring.
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install Mahanalobis_Detection_Outliers.
 
 ```bash
-pip install Mahanalobis_Detection_Outliers
+pip3 install MDO-outlier-detector
 ```
 
 ## Usage
 
 ```python
-from outlier_detector.main import Mdo
+from mdo_outlier_detector.detector import Mdo
 
 params = { 
     "inference_type"='bayesian',

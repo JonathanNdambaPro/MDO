@@ -1,6 +1,6 @@
 Metadata-Version: 1.2
 Name: mdo-outlier-detector
-Version: 0.2.1
+Version: 0.2.2
 Summary: 
             Detection of outlier with mahanalobis distance 
             which have access of the parameters (means and precision matrice) with algo GMM or Bayesian GMM provide by sklearn
